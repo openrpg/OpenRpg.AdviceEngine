@@ -16,7 +16,7 @@ namespace OpenRpg.AdviceEngine.Applicators
 
         public bool CanApplyTo(IAgent agent)
         {
-            var context = agent.RelatedContext;
+            var context = agent.OwnerContext;
             return RequirementChecker.AreRequirementsMet((T)context, Requirements);
         }
 

@@ -7,14 +7,14 @@ namespace OpenRpg.AdviceEngine
 {
     public class Agent : IAgent
     {
-        public IHasDataId RelatedContext { get; }
+        public IHasDataId OwnerContext { get; }
         public IUtilityVariables UtilityVariables { get; } = new UtilityVariables();
         public IConsiderationHandler ConsiderationHandler { get; }
         public IAdviceHandler AdviceHandler { get; }
 
-        public Agent(IHasDataId relatedContext, IConsiderationHandler handler, IAdviceHandler adviceHandler)
+        public Agent(IHasDataId ownerContext, IConsiderationHandler handler, IAdviceHandler adviceHandler)
         {
-            RelatedContext = relatedContext;
+            OwnerContext = ownerContext;
             ConsiderationHandler = handler;
             AdviceHandler = adviceHandler;
             ConsiderationHandler.StartHandler(UtilityVariables);

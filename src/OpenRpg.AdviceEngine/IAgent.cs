@@ -8,7 +8,7 @@ namespace OpenRpg.AdviceEngine
 {
     public interface IAgent : IDisposable
     {
-        IHasDataId RelatedContext { get; }
+        IHasDataId OwnerContext { get; }
         IUtilityVariables UtilityVariables { get; }
         IConsiderationHandler ConsiderationHandler { get; }
         IAdviceHandler AdviceHandler { get; }
