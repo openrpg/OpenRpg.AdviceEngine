@@ -35,7 +35,10 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
         public void RemoveAdvice(IAdvice advice)
         { _advisories.Remove(advice); }
 
-        public IEnumerable<IAdvice> GetAdvice()
+        public IAdvice GetAdvice(int adviceId)
+        { return _advisories.FirstOrDefault(x => x.AdviceId == adviceId); }
+
+        public IEnumerable<IAdvice> GetAllAdvice()
         { return _advisories; }
 
         private void RefreshAdvice(IAdvice advice)
