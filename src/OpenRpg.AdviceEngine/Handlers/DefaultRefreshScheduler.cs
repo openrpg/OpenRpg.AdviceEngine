@@ -6,6 +6,15 @@ namespace OpenRpg.AdviceEngine.Handlers
 {
     public class DefaultRefreshScheduler : IRefreshScheduler
     {
-        public IObservable<Unit> DefaultRefreshPeriod { get; } =  Observable.Timer(TimeSpan.FromSeconds(0.5)).Select(x => Unit.Default);
+        public IObservable<Unit> PreBuiltScheduler;
+
+        public DefaultRefreshScheduler(float defaultFrequency = 0.5f)
+        {
+            PreBuiltScheduler = Observable
+                .Timer(TimeSpan.FromSeconds(defaultFrequency), TimeSpan.FromSeconds(defaultFrequency))
+                .Select(x => Unit.Default);
+        }
+
+        public IObservable<Unit> DefaultRefreshPeriod => PreBuiltScheduler;
     }
 }
