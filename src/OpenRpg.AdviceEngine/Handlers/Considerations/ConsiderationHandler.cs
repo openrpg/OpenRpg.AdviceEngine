@@ -56,7 +56,9 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
             { _generalUpdateConsiderations.Remove(utilityKey); }
 
             _considerations.Remove(utilityKey);
-            UtilityVariables.RemoveVariable(utilityKey);
+            
+            if(UtilityVariables.ContainsKey(utilityKey))
+            { UtilityVariables.RemoveVariable(utilityKey); }
         }
 
         public void ClearConsiderations()
