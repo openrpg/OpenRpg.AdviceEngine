@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -56,6 +57,13 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
 
             _considerations.Remove(utilityKey);
             UtilityVariables.RemoveVariable(utilityKey);
+        }
+
+        public void ClearConsiderations()
+        {
+            var utilityKeys = _considerations.Keys.ToArray();
+            foreach (var key in utilityKeys)
+            { RemoveConsideration(key); }
         }
 
         private void HandleSchedulingForConsideration(IConsideration consideration, IObservable<Unit> explicitUpdateTrigger = null)

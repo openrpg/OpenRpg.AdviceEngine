@@ -14,6 +14,8 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
         
         void AddAdvice(IAdvice advice);
         void RemoveAdvice(IAdvice advice);
+        void ClearAdvice();
+        
         IAdvice GetAdvice(int adviceId);
         IEnumerable<IAdvice> GetAllAdvice();
     }

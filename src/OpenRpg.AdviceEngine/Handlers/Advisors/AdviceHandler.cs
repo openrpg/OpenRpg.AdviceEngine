@@ -35,13 +35,16 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
         public void RemoveAdvice(IAdvice advice)
         { _advisories.Remove(advice); }
 
+        public void ClearAdvice()
+        { _advisories.Clear(); }
+
         public IAdvice GetAdvice(int adviceId)
         { return _advisories.FirstOrDefault(x => x.AdviceId == adviceId); }
 
         public IEnumerable<IAdvice> GetAllAdvice()
         { return _advisories; }
 
-        private void RefreshAdvice(IAdvice advice)
+        public void RefreshAdvice(IAdvice advice)
         {
             if(!_isRunning) { return; }
 
@@ -58,7 +61,7 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
             advice.UtilityValue = utilityValues.CalculateScore();
         }
 
-        private void GeneralRefreshAdvice()
+        public void GeneralRefreshAdvice()
         {
             foreach (var advice in _advisories)
             { RefreshAdvice(advice); }

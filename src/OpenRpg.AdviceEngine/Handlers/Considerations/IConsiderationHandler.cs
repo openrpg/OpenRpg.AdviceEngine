@@ -15,5 +15,6 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
         
         void AddConsideration(IConsideration consideration, IObservable<Unit> explicitUpdateTrigger = null);
         void RemoveConsideration(UtilityKey utilityKey);
+        void ClearConsiderations();
     }
 }
