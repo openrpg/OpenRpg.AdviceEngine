@@ -1,4 +1,6 @@
 using System;
+using OpenRpg.AdviceEngine.Variables;
+using OpenRpg.Core.Common;
 
 namespace OpenRpg.AdviceEngine.Accessors
 {
@@ -6,13 +8,11 @@ namespace OpenRpg.AdviceEngine.Accessors
     {
         public int Id => 0;
         
-        public Func<float> GetValueFunction { get; }
+        public Func<IHasDataId, IUtilityVariables, float> GetValueFunction { get; }
 
-        public ManualValueAccessor(Func<float> getValueFunction)
-        {
-            GetValueFunction = getValueFunction;
-        }
+        public ManualValueAccessor(Func<IHasDataId, IUtilityVariables, float> getValueFunction)
+        { GetValueFunction = getValueFunction; }
 
-        public float GetValue() => GetValueFunction();
+        public float GetValue(IHasDataId context, IUtilityVariables variables) => GetValueFunction(context, variables);
     }
 }

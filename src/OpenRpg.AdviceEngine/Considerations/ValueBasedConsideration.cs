@@ -2,6 +2,7 @@ using OpenRpg.AdviceEngine.Accessors;
 using OpenRpg.AdviceEngine.Clampers;
 using OpenRpg.AdviceEngine.Keys;
 using OpenRpg.AdviceEngine.Variables;
+using OpenRpg.Core.Common;
 using OpenRpg.CurveFunctions;
 
 namespace OpenRpg.AdviceEngine.Considerations
@@ -21,9 +22,9 @@ namespace OpenRpg.AdviceEngine.Considerations
             UtilityId = utilityId;
         }
 
-        public float CalculateUtility(IUtilityVariables utilityVariables)
+        public float CalculateUtility(IHasDataId ownerContext, IUtilityVariables utilityVariables)
         {
-            var value = ValueAccessor.GetValue();
+            var value = ValueAccessor.GetValue(ownerContext, utilityVariables);
             var clampedValue = Clamper.Clamp(value);
             return Evaluator.Plot(clampedValue);
         }

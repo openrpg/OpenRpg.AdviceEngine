@@ -4,30 +4,28 @@ using System.Linq;
 using OpenRpg.AdviceEngine.Advisors;
 using OpenRpg.AdviceEngine.Extensions;
 using OpenRpg.AdviceEngine.Variables;
+using OpenRpg.Core.Common;
 
 namespace OpenRpg.AdviceEngine.Handlers.Advisors
 {
     public class AdviceHandler : IAdviceHandler
     {
-        public IUtilityVariables UtilityVariables { get; protected set; }
         private bool _isRunning = false;
-
         private readonly IList<IAdvice> _advisories = new List<IAdvice>();
         private readonly IDisposable _generalUpdateSub;
-        
-        public AdviceHandler(IRefreshScheduler scheduler)
-        { _generalUpdateSub = scheduler.DefaultRefreshPeriod.Subscribe(x => GeneralRefreshAdvice()); }
-        
-        public void StartHandler(IUtilityVariables variables)
-        {
-            _isRunning = true;
-            UtilityVariables = variables;
-        }
 
-        public void StopHandler()
+        public IUtilityVariables UtilityVariables { get; }
+        public IHasDataId OwnerContext { get; }
+        
+        public AdviceHandler(IRefreshScheduler scheduler, IUtilityVariables utilityVariables, IHasDataId ownerContext)
         {
-            _isRunning = false;
+            OwnerContext = ownerContext;
+            UtilityVariables = utilityVariables;
+            _generalUpdateSub = scheduler.DefaultRefreshPeriod.Subscribe(x => GeneralRefreshAdvice());
         }
+        
+        public void StartHandler() => _isRunning = true;
+        public void StopHandler() => _isRunning = false;
         
         public void AddAdvice(IAdvice advice)
         { _advisories.Add(advice); }
@@ -58,7 +56,13 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
                 utilityValues.Add(value);
             }
 
-            advice.UtilityValue = utilityValues.CalculateScore();
+            advice.Score = utilityValues.CalculateScore();
+
+            foreach (var modifier in advice.ScoreModifiers)
+            {
+                if (modifier.ShouldApply(OwnerContext, UtilityVariables))
+                { advice.Score = modifier.ModifyScore(advice.Score, OwnerContext, UtilityVariables); }
+            }
         }
 
         public void GeneralRefreshAdvice()

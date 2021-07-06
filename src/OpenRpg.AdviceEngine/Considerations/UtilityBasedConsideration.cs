@@ -1,5 +1,6 @@
 using OpenRpg.AdviceEngine.Keys;
 using OpenRpg.AdviceEngine.Variables;
+using OpenRpg.Core.Common;
 using OpenRpg.CurveFunctions;
 
 namespace OpenRpg.AdviceEngine.Considerations
@@ -17,7 +18,7 @@ namespace OpenRpg.AdviceEngine.Considerations
             Evaluator = evaluator;
         }
 
-        public float CalculateUtility(IUtilityVariables utilityVariables)
+        public float CalculateUtility(IHasDataId ownerContext, IUtilityVariables utilityVariables)
         {
             var existingUtility = utilityVariables[DependentUtilityId];
             if (Evaluator == null) { return existingUtility; }
