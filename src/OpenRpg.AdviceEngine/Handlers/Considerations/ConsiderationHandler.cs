@@ -8,33 +8,32 @@ using OpenRpg.AdviceEngine.Considerations;
 using OpenRpg.AdviceEngine.Extensions;
 using OpenRpg.AdviceEngine.Keys;
 using OpenRpg.AdviceEngine.Variables;
+using OpenRpg.Core.Common;
 using OpenRpg.Core.Variables;
 
 namespace OpenRpg.AdviceEngine.Handlers.Considerations
 {
     public class ConsiderationHandler : IConsiderationHandler
     {
-        public IUtilityVariables UtilityVariables { get; protected set; }
-        private bool _isRunning = false;
-
         private readonly IDictionary<UtilityKey, IConsideration> _considerations = new Dictionary<UtilityKey, IConsideration>();
         private readonly IDictionary<UtilityKey, IDisposable> _explicitUpdateSchedules = new Dictionary<UtilityKey, IDisposable>();
         private readonly IList<UtilityKey> _generalUpdateConsiderations = new List<UtilityKey>();
         private readonly IDisposable _generalUpdateSub;
+        private bool _isRunning = false;
         
-        public ConsiderationHandler(IRefreshScheduler scheduler)
-        { _generalUpdateSub = scheduler.DefaultRefreshPeriod.Subscribe(x => GeneralRefreshConsiderations()); }
-        
-        public void StartHandler(IUtilityVariables variables)
-        {
-            _isRunning = true;
-            UtilityVariables = variables;
-        }
+        public IUtilityVariables UtilityVariables { get; }
+        public IHasDataId OwnerContext { get; }
 
-        public void StopHandler()
+        public ConsiderationHandler(IRefreshScheduler scheduler, IUtilityVariables utilityVariables,
+            IHasDataId ownerContext)
         {
-            _isRunning = false;
+            OwnerContext = ownerContext;
+            UtilityVariables = utilityVariables;
+            _generalUpdateSub = scheduler.DefaultRefreshPeriod.Subscribe(x => GeneralRefreshConsiderations());
         }
+        
+        public void StartHandler() => _isRunning = true;
+        public void StopHandler() => _isRunning = false;
         
         public void AddConsideration(IConsideration consideration, IObservable<Unit> explicitUpdateTrigger = null)
         {
@@ -117,10 +116,10 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
             if (consideration is ExternalUtilityBasedConsideration externalUtilityBasedConsideration)
             {
                 var externalVariables = externalUtilityBasedConsideration.ExternalVariableAccessor();
-                newUtility = consideration.CalculateUtility(externalVariables);
+                newUtility = consideration.CalculateUtility(OwnerContext, externalVariables);
             }
             else
-            { newUtility = consideration.CalculateUtility(UtilityVariables); }
+            { newUtility = consideration.CalculateUtility(OwnerContext, UtilityVariables); }
 
             UtilityVariables[consideration.UtilityId] = newUtility;
         }

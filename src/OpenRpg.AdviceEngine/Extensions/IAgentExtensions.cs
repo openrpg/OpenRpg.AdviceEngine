@@ -36,6 +36,6 @@ namespace OpenRpg.AdviceEngine.Extensions
         { agent.AdviceHandler.RemoveAdvice(advice); }
 
         public static IEnumerable<IAdvice> GetAdvice(this IAgent agent)
-        { return agent.AdviceHandler.GetAllAdvice().OrderByDescending(x => x.UtilityValue); }
+        { return agent.AdviceHandler.GetAllAdvice().OrderByDescending(x => x.Score); }
     }
 }

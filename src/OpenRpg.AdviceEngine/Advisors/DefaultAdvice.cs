@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenRpg.AdviceEngine.Accessors;
+using OpenRpg.AdviceEngine.Advisors.Modifiers;
 using OpenRpg.AdviceEngine.Keys;
 
 namespace OpenRpg.AdviceEngine.Advisors
@@ -7,18 +9,17 @@ namespace OpenRpg.AdviceEngine.Advisors
     public class DefaultAdvice : IAdvice
     {
         public int AdviceId { get; }
-        public float UtilityValue { get; set; }
-        public IEnumerable<UtilityKey> UtilityKeys { get; set; }
+        public float Score { get; set; }
+        public IEnumerable<UtilityKey> UtilityKeys { get; }
+        public IEnumerable<IScoreModifier> ScoreModifiers { get; }
+        public IContextAccessor ContextAccessor { get; }
 
-        private Func<object> _relatedContextAccessor;
-
-        public DefaultAdvice(int adviceId, IEnumerable<UtilityKey> utilityKeys, Func<object> relatedContextAccessor)
+        public DefaultAdvice(int adviceId, IEnumerable<UtilityKey> utilityKeys, IContextAccessor relatedContextAccessor, IEnumerable<IScoreModifier> scoreModifiers = null)
         {
-            _relatedContextAccessor = relatedContextAccessor;
+            ContextAccessor = relatedContextAccessor;
             AdviceId = adviceId;
             UtilityKeys = utilityKeys;
+            ScoreModifiers = scoreModifiers ?? Array.Empty<IScoreModifier>();
         }
-
-        public object GetRelatedContext() => _relatedContextAccessor();
     }
 }

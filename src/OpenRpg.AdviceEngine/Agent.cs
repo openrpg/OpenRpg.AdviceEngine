@@ -1,5 +1,7 @@
 using OpenRpg.AdviceEngine.Handlers.Advisors;
+using OpenRpg.AdviceEngine.Handlers.Advisors.Factories;
 using OpenRpg.AdviceEngine.Handlers.Considerations;
+using OpenRpg.AdviceEngine.Handlers.Considerations.Factories;
 using OpenRpg.AdviceEngine.Variables;
 using OpenRpg.Core.Common;
 
@@ -12,13 +14,23 @@ namespace OpenRpg.AdviceEngine
         public IConsiderationHandler ConsiderationHandler { get; }
         public IAdviceHandler AdviceHandler { get; }
 
-        public Agent(IHasDataId ownerContext, IConsiderationHandler handler, IAdviceHandler adviceHandler)
+        public Agent(IHasDataId ownerContext, IUtilityVariables variables, IConsiderationHandler considerationHandler, IAdviceHandler adviceHandler)
         {
             OwnerContext = ownerContext;
-            ConsiderationHandler = handler;
+            UtilityVariables = variables;
+            ConsiderationHandler = considerationHandler;
             AdviceHandler = adviceHandler;
-            ConsiderationHandler.StartHandler(UtilityVariables);
-            AdviceHandler.StartHandler(UtilityVariables);
+            ConsiderationHandler.StartHandler();
+            AdviceHandler.StartHandler();
+        }
+        
+        public Agent(IHasDataId ownerContext, IConsiderationHandlerFactory considerationHandlerFactory, IAdviceHandlerFactory adviceHandlerFactory)
+        {
+            OwnerContext = ownerContext;
+            ConsiderationHandler = considerationHandlerFactory.Create(UtilityVariables, OwnerContext);
+            AdviceHandler = adviceHandlerFactory.Create(UtilityVariables, OwnerContext);
+            ConsiderationHandler.StartHandler();
+            AdviceHandler.StartHandler();
         }
 
         public void Dispose()
