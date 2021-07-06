@@ -8,11 +8,18 @@ namespace OpenRpg.AdviceEngine.Accessors
     {
         public int Id => 0;
 
+        public IHasDataId Context { get; }
+        public IUtilityVariables Variables { get; }
         public Func<IHasDataId, IUtilityVariables, object> GetContextFunction { get; }
 
-        public ManualContextAccessor(Func<IHasDataId, IUtilityVariables, object> getContextFunction)
-        { GetContextFunction = getContextFunction; }
-
-        public object GetContext(IHasDataId context, IUtilityVariables variables) => GetContextFunction(context, variables);
+        public ManualContextAccessor(IHasDataId context, IUtilityVariables variables,
+            Func<IHasDataId, IUtilityVariables, object> getContextFunction)
+        {
+            Context = context;
+            Variables = variables;
+            GetContextFunction = getContextFunction;
+        }
+        
+        public object GetContext() => GetContextFunction(Context, Variables);
     }
 }
