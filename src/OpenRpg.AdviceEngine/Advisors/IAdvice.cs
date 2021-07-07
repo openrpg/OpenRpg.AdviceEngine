@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using OpenRpg.AdviceEngine.Accessors;
-using OpenRpg.AdviceEngine.Advisors.Modifiers;
 using OpenRpg.AdviceEngine.Keys;
+using OpenRpg.AdviceEngine.Modifiers;
 
 namespace OpenRpg.AdviceEngine.Advisors
 {
@@ -10,7 +10,7 @@ namespace OpenRpg.AdviceEngine.Advisors
         int AdviceId { get; }
         float Score { get; set; }
         IEnumerable<UtilityKey> UtilityKeys { get; }
-        IEnumerable<IScoreModifier> ScoreModifiers { get; }
+        IEnumerable<IValueModifier> ScoreModifiers { get; }
         IContextAccessor ContextAccessor { get; }
     }
 }

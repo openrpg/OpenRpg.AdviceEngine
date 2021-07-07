@@ -61,7 +61,7 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
             foreach (var modifier in advice.ScoreModifiers)
             {
                 if (modifier.ShouldApply(OwnerContext, UtilityVariables))
-                { advice.Score = modifier.ModifyScore(advice.Score, OwnerContext, UtilityVariables); }
+                { advice.Score = modifier.ModifyValue(advice.Score, OwnerContext, UtilityVariables); }
             }
         }
 

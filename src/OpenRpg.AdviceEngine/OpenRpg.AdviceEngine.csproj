@@ -12,8 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="OpenRpg.Core" Version="0.17.119" />
-      <PackageReference Include="OpenRpg.CurveFunctions" Version="0.17.119" />
+      <PackageReference Include="OpenRpg.Core" Version="0.17.131" />
+      <PackageReference Include="OpenRpg.CurveFunctions" Version="0.17.131" />
       <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
 
