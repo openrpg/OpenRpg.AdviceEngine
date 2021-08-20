@@ -10,8 +10,8 @@ namespace OpenRpg.AdviceEngine.Variables
         public IReadOnlyCollection<KeyValuePair<UtilityKey, float>> GetRelatedUtilities(int utilityId)
         { return InternalVariables.Where(x => x.Key.UtilityId == utilityId).ToArray(); }
 
-        public void RemoveVariable(int utilityId)
-        { RemoveVariable(new UtilityKey(utilityId)); }
+        public void Remove(int utilityId)
+        { Remove(new UtilityKey(utilityId)); }
 
         public bool ContainsKey(int utilityId)
         { return ContainsKey(new UtilityKey(utilityId)); }

@@ -57,7 +57,7 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
             _considerations.Remove(utilityKey);
             
             if(UtilityVariables.ContainsKey(utilityKey))
-            { UtilityVariables.RemoveVariable(utilityKey); }
+            { UtilityVariables.Remove(utilityKey); }
         }
 
         public void ClearConsiderations()
@@ -92,15 +92,15 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
         {
             var compositeDisposable = new CompositeDisposable();
             Observable.FromEventPattern<VariableChangedEventHandler<UtilityKey, float>, VariableEventArgs<UtilityKey, float>>(
-                    x => UtilityVariables.OnVariableChanged += x,
-                    x => UtilityVariables.OnVariableChanged -= x)
+                    x => UtilityVariables.OnChanged += x,
+                    x => UtilityVariables.OnChanged -= x)
                 .Where(x => x.EventArgs.VariableType.Equals(consideration.DependentUtilityId))
                 .Subscribe(x => RefreshConsideration(consideration))
                 .AddTo(compositeDisposable);
             
             Observable.FromEventPattern<VariableChangedEventHandler<UtilityKey, float>, VariableEventArgs<UtilityKey, float>>(
-                x => UtilityVariables.OnVariableRemoved += x,
-                x => UtilityVariables.OnVariableRemoved -= x)
+                x => UtilityVariables.OnRemoved += x,
+                x => UtilityVariables.OnRemoved -= x)
                 .FirstAsync()
                 .Subscribe(x => RemoveConsideration(consideration.UtilityId))
                 .AddTo(compositeDisposable);
