@@ -9,7 +9,7 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
     public interface IAdviceHandler : IDisposable
     {
         IUtilityVariables UtilityVariables { get; }
-        IHasDataId OwnerContext { get; }
+        object OwnerContext { get; }
 
         void StartHandler();
         void StopHandler();

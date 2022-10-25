@@ -15,9 +15,9 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors
         private readonly IDisposable _generalUpdateSub;
 
         public IUtilityVariables UtilityVariables { get; }
-        public IHasDataId OwnerContext { get; }
+        public object OwnerContext { get; }
         
-        public AdviceHandler(IRefreshScheduler scheduler, IUtilityVariables utilityVariables, IHasDataId ownerContext)
+        public AdviceHandler(IRefreshScheduler scheduler, IUtilityVariables utilityVariables, object ownerContext)
         {
             OwnerContext = ownerContext;
             UtilityVariables = utilityVariables;
