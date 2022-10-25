@@ -8,7 +8,6 @@ using OpenRpg.AdviceEngine.Considerations;
 using OpenRpg.AdviceEngine.Extensions;
 using OpenRpg.AdviceEngine.Keys;
 using OpenRpg.AdviceEngine.Variables;
-using OpenRpg.Core.Common;
 using OpenRpg.Core.Variables;
 
 namespace OpenRpg.AdviceEngine.Handlers.Considerations
@@ -22,10 +21,10 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations
         private bool _isRunning = false;
         
         public IUtilityVariables UtilityVariables { get; }
-        public IHasDataId OwnerContext { get; }
+        public object OwnerContext { get; }
 
         public ConsiderationHandler(IRefreshScheduler scheduler, IUtilityVariables utilityVariables,
-            IHasDataId ownerContext)
+            object ownerContext)
         {
             OwnerContext = ownerContext;
             UtilityVariables = utilityVariables;

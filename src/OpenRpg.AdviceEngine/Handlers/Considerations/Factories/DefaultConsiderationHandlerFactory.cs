@@ -10,7 +10,7 @@ namespace OpenRpg.AdviceEngine.Handlers.Considerations.Factories
         public DefaultConsiderationHandlerFactory(IRefreshScheduler refreshScheduler)
         { RefreshScheduler = refreshScheduler; }
 
-        public IConsiderationHandler Create(IUtilityVariables variables, IHasDataId context)
+        public IConsiderationHandler Create(IUtilityVariables variables, object context)
         { return new ConsiderationHandler(RefreshScheduler, variables, context); }
     }
 }

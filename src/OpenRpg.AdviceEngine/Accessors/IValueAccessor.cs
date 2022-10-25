@@ -5,6 +5,6 @@ namespace OpenRpg.AdviceEngine.Accessors
 {
     public interface IValueAccessor : IHasDataId
     {
-        float GetValue(IHasDataId ownerContext, IUtilityVariables utilityVariables);
+        float GetValue(object ownerContext, IUtilityVariables utilityVariables);
     }
 }

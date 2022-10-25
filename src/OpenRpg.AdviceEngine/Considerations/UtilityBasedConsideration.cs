@@ -24,7 +24,7 @@ namespace OpenRpg.AdviceEngine.Considerations
             Modifiers = modifiers ?? Array.Empty<IValueModifier>();
         }
 
-        public float CalculateUtility(IHasDataId ownerContext, IUtilityVariables utilityVariables)
+        public float CalculateUtility(object ownerContext, IUtilityVariables utilityVariables)
         {
             var existingUtility = utilityVariables[DependentUtilityId];
             if (Evaluator != null)

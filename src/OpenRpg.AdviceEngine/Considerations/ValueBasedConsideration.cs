@@ -29,7 +29,7 @@ namespace OpenRpg.AdviceEngine.Considerations
             Modifiers = modifiers ?? Array.Empty<IValueModifier>();
         }
 
-        public float CalculateUtility(IHasDataId ownerContext, IUtilityVariables utilityVariables)
+        public float CalculateUtility(object ownerContext, IUtilityVariables utilityVariables)
         {
             var value = ValueAccessor.GetValue(ownerContext, utilityVariables);
             var clampedValue = Clamper.Clamp(value);

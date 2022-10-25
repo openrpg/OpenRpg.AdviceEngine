@@ -9,7 +9,7 @@ namespace OpenRpg.AdviceEngine
 {
     public class Agent : IAgent
     {
-        public IHasDataId OwnerContext { get; }
+        public object OwnerContext { get; }
         public IUtilityVariables UtilityVariables { get; } = new UtilityVariables();
         public IConsiderationHandler ConsiderationHandler { get; }
         public IAdviceHandler AdviceHandler { get; }
@@ -24,7 +24,7 @@ namespace OpenRpg.AdviceEngine
             AdviceHandler.StartHandler();
         }
         
-        public Agent(IHasDataId ownerContext, IConsiderationHandlerFactory considerationHandlerFactory, IAdviceHandlerFactory adviceHandlerFactory)
+        public Agent(object ownerContext, IConsiderationHandlerFactory considerationHandlerFactory, IAdviceHandlerFactory adviceHandlerFactory)
         {
             OwnerContext = ownerContext;
             ConsiderationHandler = considerationHandlerFactory.Create(UtilityVariables, OwnerContext);

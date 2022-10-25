@@ -5,7 +5,7 @@ namespace OpenRpg.AdviceEngine.Accessors
 {
     public interface IContextAccessor : IHasDataId
     {
-        IHasDataId Context { get; }
+        object Context { get; }
         IUtilityVariables Variables { get; }
         
         object GetContext();

@@ -10,6 +10,6 @@ namespace OpenRpg.AdviceEngine.Considerations
     {
         UtilityKey UtilityId { get; }
         IEnumerable<IValueModifier> Modifiers { get; }
-        float CalculateUtility(IHasDataId ownerContext, IUtilityVariables utilityVariables);
+        float CalculateUtility(object ownerContext, IUtilityVariables utilityVariables);
     }
 }

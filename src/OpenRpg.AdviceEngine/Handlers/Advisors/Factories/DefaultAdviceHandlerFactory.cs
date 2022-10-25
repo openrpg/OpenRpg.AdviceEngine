@@ -10,7 +10,7 @@ namespace OpenRpg.AdviceEngine.Handlers.Advisors.Factories
         public DefaultAdviceHandlerFactory(IRefreshScheduler refreshScheduler)
         { RefreshScheduler = refreshScheduler; }
 
-        public IAdviceHandler Create(IUtilityVariables variables, IHasDataId context)
+        public IAdviceHandler Create(IUtilityVariables variables, object context)
         { return new AdviceHandler(RefreshScheduler, variables, context); }
     }
 }
