@@ -1,3 +1,5 @@
+-- THIS REPO HAS BEEN MERGED INTO THE MAIN OPENRPG REPO, SO IS NO LONGER MAINTAINED HERE --
+
 # OpenRpg.AdviceEngine
 A Utility AI flavoured framework for providing considerations to an agent and having them advise you on the best course of action.
 
